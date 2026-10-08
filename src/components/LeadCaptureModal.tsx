@@ -97,7 +97,7 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             {success ? (
@@ -125,7 +125,7 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-gray-900">Download Document</h3>
-                      <p className="text-xs text-gray-500 truncate max-w-[200px]">{doc.title}</p>
+                      <p className="text-xs text-gray-500 truncate max-w-[180px] xs:max-w-[220px]">{doc.title}</p>
                     </div>
                   </div>
                   <button

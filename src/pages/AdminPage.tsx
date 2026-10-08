@@ -211,32 +211,32 @@ export default function AdminPage() {
                 {search && ` matching "${search}"`}
               </p>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleExportCSV}
                 disabled={sortedFiltered.length === 0}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-white text-sm font-medium rounded-lg transition-colors"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-white text-sm font-medium rounded-lg transition-colors"
               >
                 <FileSpreadsheet className="h-4 w-4" />
-                Export CSV
+                <span className="hidden xs:inline sm:inline">Export </span>CSV
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleClearLogs}
                 disabled={logs.length === 0}
-                className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-red-50 text-red-600 border border-red-200 disabled:opacity-40 text-sm font-medium rounded-lg transition-colors"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-white hover:bg-red-50 text-red-600 border border-red-200 disabled:opacity-40 text-sm font-medium rounded-lg transition-colors"
               >
                 <Trash2 className="h-4 w-4" />
-                Clear All
+                <span className="hidden xs:inline sm:inline">Clear </span>All
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-gray-600 border border-gray-200 text-sm font-medium rounded-lg transition-colors"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-white hover:bg-gray-100 text-gray-600 border border-gray-200 text-sm font-medium rounded-lg transition-colors"
               >
                 <LogOut className="h-4 w-4" />
                 Logout
@@ -306,7 +306,7 @@ export default function AdminPage() {
                       >
                         <td className="px-4 py-3 text-sm font-medium text-gray-900">{log.name}</td>
                         <td className="px-4 py-3 text-sm text-gray-600">{log.phone}</td>
-                        <td className="px-4 py-3 text-sm text-gray-600">{log.email}</td>
+                        <td className="px-4 py-3 text-sm text-gray-600 break-all">{log.email}</td>
                         <td className="px-4 py-3 text-sm text-gray-600">{log.documentTitle}</td>
                         <td className="px-4 py-3 text-sm text-gray-500 whitespace-nowrap">
                           {new Date(log.timestamp).toLocaleString()}
@@ -329,24 +329,24 @@ export default function AdminPage() {
             ) : (
               sortedFiltered.map((log) => (
                 <div key={log.id} className="bg-white rounded-lg border border-gray-200 p-4">
-                  <div className="flex items-start justify-between mb-2">
+                  <div className="flex flex-col gap-1 mb-2">
                     <div className="font-medium text-gray-900 text-sm">{log.name}</div>
                     <div className="text-xs text-gray-400">
                       {new Date(log.timestamp).toLocaleString()}
                     </div>
                   </div>
-                  <div className="space-y-1 text-sm text-gray-600">
+                  <div className="space-y-1 text-sm text-gray-600 break-words">
                     <div className="flex items-center gap-2">
-                      <Phone className="h-3.5 w-3.5 text-gray-400" />
-                      {log.phone}
+                      <Phone className="h-3.5 w-3.5 text-gray-400 flex-shrink-0" />
+                      <span className="break-all">{log.phone}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Mail className="h-3.5 w-3.5 text-gray-400" />
-                      {log.email}
+                      <Mail className="h-3.5 w-3.5 text-gray-400 flex-shrink-0" />
+                      <span className="break-all">{log.email}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <FileText className="h-3.5 w-3.5 text-gray-400" />
-                      {log.documentTitle}
+                    <div className="flex items-start gap-2">
+                      <FileText className="h-3.5 w-3.5 text-gray-400 flex-shrink-0 mt-0.5" />
+                      <span>{log.documentTitle}</span>
                     </div>
                   </div>
                 </div>
