@@ -53,7 +53,7 @@ export default function Features() {
     <section id="features" className="py-16 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
-          <div>
+          <div className="min-w-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -82,15 +82,16 @@ export default function Features() {
             </div>
           </div>
 
-          <div className="space-y-6 sm:space-y-8 lg:space-y-12">
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl">
+          <div className="space-y-6 sm:space-y-8 lg:space-y-12 min-w-0">
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl max-w-full">
               <video
-                className="w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover block"
                 src="https://ik.imagekit.io/8jn9lgbbcw/Phoenix%20Presents%20updated.mp4?updatedAt=1747656454333"
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="metadata"
               >
                 Your browser does not support the video tag.
               </video>
@@ -128,7 +129,7 @@ export default function Features() {
                     ].map((testimonial, index) => (
                       <div
                         key={index}
-                        className="bg-white rounded-lg shadow-lg p-4 sm:p-6 flex-1 min-w-[260px] sm:min-w-0"
+                        className="bg-white rounded-lg shadow-lg p-4 sm:p-6 flex-1 min-w-[240px] sm:min-w-0"
                       >
                         <p className="text-sm sm:text-base text-gray-600 italic mb-4">{testimonial.text}</p>
                         <p className="text-sm sm:text-base text-gray-900 font-semibold">{testimonial.author}</p>
