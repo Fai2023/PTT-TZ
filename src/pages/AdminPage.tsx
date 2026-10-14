@@ -59,7 +59,7 @@ export default function AdminPage() {
       setAuthError('');
       setPassword('');
     } else {
-      setAuthError('Incorrect password. Please try again.');
+      setAuthError(t('adminIncorrect'));
     }
   };
 
@@ -72,7 +72,7 @@ export default function AdminPage() {
   const refreshLogs = () => setLogs(getDownloadLogs());
 
   const handleClearLogs = () => {
-    if (window.confirm('Are you sure you want to clear all download logs? This cannot be undone.')) {
+    if (window.confirm(t('clearConfirm'))) {
       clearDownloadLogs();
       refreshLogs();
     }
@@ -156,9 +156,9 @@ export default function AdminPage() {
                 >
                   <Lock className="h-7 w-7 text-phoenix-600" />
                 </motion.div>
-                <h1 className="text-xl font-bold text-gray-900">Admin Access</h1>
+                <h1 className="text-xl font-bold text-gray-900">{t('adminAccess')}</h1>
                 <p className="text-sm text-gray-500 mt-1">
-                  Enter your password to view download logs
+                  {t('adminAccessDesc')}
                 </p>
               </div>
 
@@ -171,7 +171,7 @@ export default function AdminPage() {
                     className={`w-full px-4 py-2.5 rounded-lg border ${
                       authError ? 'border-red-400 bg-red-50' : 'border-gray-200'
                     } focus:outline-none focus:ring-2 focus:ring-phoenix-500 focus:border-transparent transition-all text-gray-900`}
-                    placeholder="Admin password"
+                    placeholder={t('adminPassword')}
                     autoFocus
                   />
                   {authError && <p className="text-xs text-red-500 mt-1.5">{authError}</p>}
@@ -183,7 +183,7 @@ export default function AdminPage() {
                   className="w-full bg-phoenix-600 hover:bg-phoenix-700 text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <ShieldCheck className="h-4 w-4" />
-                  Sign In
+                  {t('adminLogin')}
                 </motion.button>
               </form>
             </div>
@@ -205,10 +205,10 @@ export default function AdminPage() {
           {/* Header bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Download Logs</h1>
+              <h1 className="text-2xl font-bold text-gray-900">{t('downloadLogs')}</h1>
               <p className="text-sm text-gray-500 mt-1">
-                {sortedFiltered.length} {sortedFiltered.length === 1 ? 'entry' : 'entries'}
-                {search && ` matching "${search}"`}
+                {sortedFiltered.length} {sortedFiltered.length === 1 ? t('entry') : t('entries')}
+                {search && ` ${t('matching')} "${search}"`}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2 sm:gap-3">
@@ -220,7 +220,7 @@ export default function AdminPage() {
                 className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-white text-sm font-medium rounded-lg transition-colors"
               >
                 <FileSpreadsheet className="h-4 w-4" />
-                <span className="hidden xs:inline sm:inline">Export </span>CSV
+                <span className="hidden xs:inline sm:inline">{t('exportCSV').split(' ')[0]} </span>{t('exportCSV').split(' ')[1]}
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -230,7 +230,7 @@ export default function AdminPage() {
                 className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-white hover:bg-red-50 text-red-600 border border-red-200 disabled:opacity-40 text-sm font-medium rounded-lg transition-colors"
               >
                 <Trash2 className="h-4 w-4" />
-                <span className="hidden xs:inline sm:inline">Clear </span>All
+                <span className="hidden xs:inline sm:inline">{t('clearAll').split(' ')[0]} </span>{t('clearAll').split(' ')[1]}
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -239,7 +239,7 @@ export default function AdminPage() {
                 className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-white hover:bg-gray-100 text-gray-600 border border-gray-200 text-sm font-medium rounded-lg transition-colors"
               >
                 <LogOut className="h-4 w-4" />
-                Logout
+                {t('logout')}
               </motion.button>
             </div>
           </div>
@@ -252,7 +252,7 @@ export default function AdminPage() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search by name, phone, email, or document..."
+                placeholder={t('searchPlaceholder')}
                 className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-phoenix-500 focus:border-transparent transition-all text-gray-900 text-sm"
               />
             </div>
@@ -266,11 +266,11 @@ export default function AdminPage() {
                   <tr className="bg-gray-50 border-b border-gray-200">
                     {(
                       [
-                        { field: 'name' as SortField, label: 'Name', icon: User },
-                        { field: 'phone' as SortField, label: 'Phone', icon: Phone },
-                        { field: 'email' as SortField, label: 'Email', icon: Mail },
-                        { field: 'documentTitle' as SortField, label: 'Document', icon: FileText },
-                        { field: 'timestamp' as SortField, label: 'Date/Time', icon: Calendar },
+                        { field: 'name' as SortField, label: t('name'), icon: User },
+                        { field: 'phone' as SortField, label: t('phone'), icon: Phone },
+                        { field: 'email' as SortField, label: t('email'), icon: Mail },
+                        { field: 'documentTitle' as SortField, label: t('documents'), icon: FileText },
+                        { field: 'timestamp' as SortField, label: t('date'), icon: Calendar },
                       ]
                     ).map(({ field, label, icon: Icon }) => (
                       <th
@@ -292,7 +292,7 @@ export default function AdminPage() {
                     <tr>
                       <td colSpan={5} className="text-center py-16 text-gray-400">
                         <Download className="h-10 w-10 text-gray-300 mx-auto mb-3" />
-                        No download logs yet. Logs will appear here when visitors download documents.
+                        {t('noLogsYet')}
                       </td>
                     </tr>
                   ) : (
@@ -324,7 +324,7 @@ export default function AdminPage() {
             {sortedFiltered.length === 0 ? (
               <div className="text-center py-16 text-gray-400">
                 <Download className="h-10 w-10 text-gray-300 mx-auto mb-3" />
-                No download logs yet.
+                {t('noLogsYetShort')}
               </div>
             ) : (
               sortedFiltered.map((log) => (

@@ -21,7 +21,7 @@ export default function CaseStudyDetail() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Case study not found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('caseStudyNotFound')}</h1>
           <Link to="/case-studies" className="text-phoenix-600 hover:text-phoenix-700">
             Back to Case Studies
           </Link>
@@ -41,7 +41,7 @@ export default function CaseStudyDetail() {
               className="inline-flex items-center gap-2 text-gray-600 hover:text-phoenix-600 transition-colors mb-8"
             >
               <ArrowLeft className="h-4 w-4" />
-              Back to Case Studies
+              {t('backToCaseStudies')}
             </Link>
 
             <motion.div
@@ -62,7 +62,7 @@ export default function CaseStudyDetail() {
             </motion.div>
 
             <div className="prose prose-lg max-w-none text-gray-700">
-              <p className="text-gray-500 italic">Case study content will be added here.</p>
+              <p className="text-gray-500 italic">{t('caseStudyContentPending')}</p>
             </div>
           </div>
         </section>

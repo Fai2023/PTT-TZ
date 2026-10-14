@@ -2,18 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Check } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
+import type { TranslationKey } from '../i18n/translations';
 
 interface ProductDetailProps {
   product: {
     name: string;
     image: string;
-    description: string;
-    features: string[];
-    specifications: {
-      [key: string]: string;
-    };
-    industries?: string[];
-    accessories?: string[];
+    descriptionKey: TranslationKey;
+    features: TranslationKey[];
+    specifications: Record<TranslationKey, string>;
+    industries?: TranslationKey[];
+    accessories?: TranslationKey[];
   };
   onBack: () => void;
 }
@@ -54,14 +53,14 @@ export default function ProductDetail({ product, onBack }: ProductDetailProps) {
               />
             </div>
 
-            {product.industries && (
+            {product.industries && product.industries.length > 0 && (
               <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
                 <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">{t('industriesServed')}</h2>
                 <div className="grid grid-cols-2 gap-4">
-                  {product.industries.map((industry) => (
-                    <div key={industry} className="flex items-center text-gray-600">
+                  {product.industries.map((industryKey) => (
+                    <div key={industryKey} className="flex items-center text-gray-600">
                       <Check className="h-5 w-5 text-phoenix-500 mr-2" />
-                      <span>{industry}</span>
+                      <span>{t(industryKey)}</span>
                     </div>
                   ))}
                 </div>
@@ -76,16 +75,16 @@ export default function ProductDetail({ product, onBack }: ProductDetailProps) {
           >
             <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-600">{product.description}</p>
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600">{t(product.descriptionKey)}</p>
             </div>
 
             <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
               <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">{t('keyFeatures')}</h2>
               <div className="grid sm:grid-cols-2 gap-4">
-                {product.features.map((feature, index) => (
+                {product.features.map((featureKey, index) => (
                   <div key={index} className="flex items-start">
                     <Check className="h-5 w-5 text-phoenix-500 mt-1 mr-2 flex-shrink-0" />
-                    <span className="text-gray-600">{feature}</span>
+                    <span className="text-gray-600">{t(featureKey)}</span>
                   </div>
                 ))}
               </div>
@@ -96,21 +95,21 @@ export default function ProductDetail({ product, onBack }: ProductDetailProps) {
               <div className="grid sm:grid-cols-2 gap-6">
                 {Object.entries(product.specifications).map(([key, value]) => (
                   <div key={key} className="border-b border-gray-200 pb-4">
-                    <p className="text-sm text-gray-500 mb-1">{key}</p>
+                    <p className="text-sm text-gray-500 mb-1">{t(key as TranslationKey)}</p>
                     <p className="text-gray-900 font-medium">{value}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {product.accessories && (
+            {product.accessories && product.accessories.length > 0 && (
               <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
                 <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">{t('availableAccessories')}</h2>
                 <ul className="space-y-3">
-                  {product.accessories.map((accessory) => (
-                    <li key={accessory} className="flex items-center text-gray-600">
+                  {product.accessories.map((accessoryKey) => (
+                    <li key={accessoryKey} className="flex items-center text-gray-600">
                       <span className="w-2 h-2 bg-phoenix-500 rounded-full mr-3"></span>
-                      {accessory}
+                      {t(accessoryKey)}
                     </li>
                   ))}
                 </ul>

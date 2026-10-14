@@ -4,6 +4,7 @@ import { X, Download, User, Phone, Mail, Loader2, CheckCircle2 } from 'lucide-re
 import type { DocumentItem, LeadInfo } from '../data/documents';
 import { downloadDocument } from '../lib/documentGenerator';
 import { addDownloadLog, storeLead, getStoredLead, validateEmail, validatePhone } from '../lib/downloadLog';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface LeadCaptureModalProps {
   document: DocumentItem | null;
@@ -17,6 +18,7 @@ interface FormErrors {
 }
 
 export default function LeadCaptureModal({ document: doc, onClose }: LeadCaptureModalProps) {
+  const { t } = useLanguage();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -42,19 +44,19 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
     if (!name.trim()) {
-      newErrors.name = 'Please enter your name';
+      newErrors.name = t('nameRequired');
     } else if (name.trim().length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
+      newErrors.name = t('nameMinLength');
     }
     if (!phone.trim()) {
-      newErrors.phone = 'Please enter your phone number';
+      newErrors.phone = t('phoneRequired');
     } else if (!validatePhone(phone)) {
-      newErrors.phone = 'Enter a valid phone number (7-15 digits)';
+      newErrors.phone = t('phoneInvalid');
     }
     if (!email.trim()) {
-      newErrors.email = 'Please enter your email';
+      newErrors.email = t('emailRequired');
     } else if (!validateEmail(email)) {
-      newErrors.email = 'Enter a valid email address';
+      newErrors.email = t('emailInvalid');
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -110,10 +112,9 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
                 >
                   <CheckCircle2 className="h-8 w-8 text-green-600" />
                 </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Download Started!</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{t('downloadStarted')}</h3>
                 <p className="text-gray-600 text-sm">
-                  Your download should begin shortly. We've also saved your details for this session
-                  so you won't need to fill this form again.
+                  {t('downloadStartedDesc')}
                 </p>
               </div>
             ) : (
@@ -124,14 +125,14 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
                       <Download className="h-5 w-5 text-phoenix-600" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900">Download Document</h3>
+                      <h3 className="text-lg font-bold text-gray-900">{t('downloadDocument')}</h3>
                       <p className="text-xs text-gray-500 truncate max-w-[180px] xs:max-w-[220px]">{doc.title}</p>
                     </div>
                   </div>
                   <button
                     onClick={onClose}
                     className="text-gray-400 hover:text-gray-600 transition-colors"
-                    aria-label="Close"
+                    aria-label={t('close')}
                   >
                     <X className="h-5 w-5" />
                   </button>
@@ -139,13 +140,12 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
                   <p className="text-sm text-gray-500">
-                    Please provide your contact details to download this document. Our sales team may
-                    reach out to assist you.
+                    {t('pleaseProvideDetails')}
                   </p>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Full Name
+                      {t('fullName')}
                     </label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -156,7 +156,7 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
                         className={`w-full pl-10 pr-4 py-2.5 rounded-lg border ${
                           errors.name ? 'border-red-400 bg-red-50' : 'border-gray-200'
                         } focus:outline-none focus:ring-2 focus:ring-phoenix-500 focus:border-transparent transition-all text-gray-900`}
-                        placeholder="John Doe"
+                        placeholder={t('namePlaceholder')}
                       />
                     </div>
                     {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
@@ -164,7 +164,7 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Phone Number
+                      {t('phoneNumber')}
                     </label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -175,7 +175,7 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
                         className={`w-full pl-10 pr-4 py-2.5 rounded-lg border ${
                           errors.phone ? 'border-red-400 bg-red-50' : 'border-gray-200'
                         } focus:outline-none focus:ring-2 focus:ring-phoenix-500 focus:border-transparent transition-all text-gray-900`}
-                        placeholder="+255 754 770 777"
+                        placeholder={t('phonePlaceholder')}
                       />
                     </div>
                     {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
@@ -183,7 +183,7 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Email Address
+                      {t('emailAddress')}
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -194,7 +194,7 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
                         className={`w-full pl-10 pr-4 py-2.5 rounded-lg border ${
                           errors.email ? 'border-red-400 bg-red-50' : 'border-gray-200'
                         } focus:outline-none focus:ring-2 focus:ring-phoenix-500 focus:border-transparent transition-all text-gray-900`}
-                        placeholder="john@company.com"
+                        placeholder={t('emailPlaceholder')}
                       />
                     </div>
                     {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
@@ -210,18 +210,18 @@ export default function LeadCaptureModal({ document: doc, onClose }: LeadCapture
                     {submitting ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Preparing download...
+                        {t('preparingDownload')}
                       </>
                     ) : (
                       <>
                         <Download className="h-4 w-4" />
-                        Download Now
+                        {t('downloadNow')}
                       </>
                     )}
                   </motion.button>
 
                   <p className="text-xs text-gray-400 text-center">
-                    Your information is stored securely and used only for sales follow-up.
+                    {t('infoSecure')}
                   </p>
                 </form>
               </>

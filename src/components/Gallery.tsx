@@ -1,18 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const images = [
   {
     src: 'https://ik.imagekit.io/8jn9lgbbcw/IMG_7562.jpg?updatedAt=1747656854362',
-    alt: 'Push2Talk in Action 1'
   },
   {
     src: 'https://ik.imagekit.io/8jn9lgbbcw/walkie%20talkie%203.jpeg?updatedAt=1747656913315',
-    alt: 'Push2Talk in Action 2'
   }
 ];
 
 export default function Gallery() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,8 +23,8 @@ export default function Gallery() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Gallery</h2>
-          <p className="text-xl text-gray-600">See our solutions in action</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('galleryTitle')}</h2>
+          <p className="text-xl text-gray-600">{t('gallerySubtitle')}</p>
         </motion.div>
         
         <div className="gallery-grid">
@@ -38,7 +39,7 @@ export default function Gallery() {
             >
               <img
                 src={image.src}
-                alt={image.alt}
+                alt={t('galleryTitle')}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </motion.div>

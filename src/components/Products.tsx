@@ -2,162 +2,102 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ProductDetail from './ProductDetail';
 import { useLanguage } from '../i18n/LanguageContext';
+import type { TranslationKey } from '../i18n/translations';
 
-const products = [
+interface ProductData {
+  name: string;
+  image: string;
+  features: TranslationKey[];
+  descriptionKey: TranslationKey;
+  specifications: Record<TranslationKey, string>;
+  industries: TranslationKey[];
+  accessories: TranslationKey[];
+}
+
+const products: ProductData[] = [
   {
     name: 'Etera T780',
     image: 'https://ik.imagekit.io/8jn9lgbbcw/web/Screenshot%202024-11-25%20142832.png?updatedAt=1740474557787',
-    features: [
-      'Android 10.0 GO OS',
-      'Global 4G LTE Support',
-      '4600mAh Long-Life Battery',
-      'Multi-Language Support',
-      'NFC Enabled',
-      'IP68 Waterproof Rating',
-      'Advanced Positioning System',
-      'Dual SIM Support'
-    ],
-    description: 'The eTera T780 is a robust, mission-ready smart Push-to-Talk (PTT) device built for professionals who require instant communication in high-risk and high-mobility environments. Engineered with an IP68 waterproof rating, dual SIM support, and seamless 4G/Wi-Fi connectivity.',
+    features: ['featAndroid', 'feat4gLTE', 'featBattery4600', 'featMultiLang', 'featNFC', 'featIP68', 'featPositioning', 'featDualSIM'],
+    descriptionKey: 'productT780Desc',
     specifications: {
-      'Dimensions': '131.0 × 70.4 × 26.0 mm',
-      'Weight': '247g with battery',
-      'Display': 'Rugged touchscreen',
-      'Battery': '4600mAh Li-Po',
-      'Operating System': 'Android 10.0 GO',
-      'Waterproof Rating': 'IP68',
-      'Network': '4G LTE (FDD & TDD)',
-      'Connectivity': 'Bluetooth 5.0, Wi-Fi 2.4G/5G',
-      'Positioning': 'GPS, GLONASS, Beidou, AGPS',
-      'Sensors': '3D Gravity & Proximity',
-      'Ports': 'Extended M6 Connector'
+      specDimensions: '131.0 × 70.4 × 26.0 mm',
+      specWeight: '247g with battery',
+      specDisplay: 'Rugged touchscreen',
+      specBattery: '4600mAh Li-Po',
+      specOS: 'Android 10.0 GO',
+      specWaterproof: 'IP68',
+      specNetwork: '4G LTE (FDD & TDD)',
+      specConnectivity: 'Bluetooth 5.0, Wi-Fi 2.4G/5G',
+      specPositioning: 'GPS, GLONASS, Beidou, AGPS',
+      specSensors: '3D Gravity & Proximity',
+      specPorts: 'Extended M6 Connector',
     },
-    industries: [
-      'Law Enforcement & Police',
-      'Emergency Response Teams',
-      'Security Companies',
-      'Industrial Operations',
-      'Transportation & Logistics',
-      'Critical Infrastructure Protection'
-    ],
-    accessories: [
-      'Bluetooth Earpieces',
-      'Covert Earphones',
-      'Remote Speaker Microphones (BT & Wired)',
-      'External Cameras',
-      'Night Vision Devices',
-      'Charging Dock & Micro USB Cable',
-      'Power Adapter',
-      'Rugged Belt Clip',
-      'Replaceable 4600mAh Battery'
-    ]
+    industries: ['indLawEnforcement', 'indEmergency', 'indSecurity', 'indIndustrial', 'indTransport', 'indCriticalInfra'],
+    accessories: ['accBTEarpieces', 'accCovertEarphones', 'accRSM', 'accExtCameras', 'accNightVision', 'accChargingDock', 'accPowerAdapter', 'accBeltClip', 'accReplaceBattery'],
   },
   {
     name: 'Telo TE320',
     image: 'https://ik.imagekit.io/8jn9lgbbcw/web/Screenshot%202024-11-25%20152815.png?updatedAt=1740474557847',
-    features: [
-      'Dual SIM Support for Network Redundancy',
-      '3W Ultra-Loud Speaker for Clear Audio',
-      '4000mAh Long-Life Battery',
-      'Built-in NFC for Access Control',
-      'NSA-Proof Encryption',
-      'Real-Time Location Tracking',
-      'Lone Worker Protection',
-      'Private & Group Calls'
-    ],
-    description: 'The Telox TE320 is a next-generation entry-level smart POC device that merges traditional radio communication with modern technology. Perfect for industries demanding instant, reliable, and secure team coordination.',
+    features: ['featDualSIMRedundancy', 'feat3WSpeaker', 'featBattery4000', 'featNFCAccess', 'featNSAProof', 'featRTTracking', 'featLoneWorker', 'featPrivateGroupCalls'],
+    descriptionKey: 'productTE320Desc',
     specifications: {
-      'Battery': '4000mAh Li-ion',
-      'Battery Life': 'Up to 24 hours',
-      'Display': '2" Color Screen',
-      'Speaker': '3W Ultra-Loud',
-      'Weight': '280g with battery',
-      'Waterproof Rating': 'IP67',
-      'Operating Temperature': '-20°C to +60°C',
-      'Network': '4G/5G/Wi-Fi',
-      'GPS': 'High-precision GPS/GLONASS',
-      'Additional Features': 'NFC, Bluetooth 4.0',
-      'Encryption': 'AES-256',
-      'Warranty': '2 Years'
+      specBattery: '4000mAh Li-ion',
+      specBatteryLife: 'Up to 24 hours',
+      specDisplay: '2" Color Screen',
+      specSpeaker: '3W Ultra-Loud',
+      specWeight: '280g with battery',
+      specWaterproof: 'IP67',
+      specOpTemp: '-20°C to +60°C',
+      specNetwork: '4G/5G/Wi-Fi',
+      specGPS: 'High-precision GPS/GLONASS',
+      specAddFeatures: 'NFC, Bluetooth 4.0',
+      specEncryption: 'AES-256',
+      specWarranty: '2 Years',
     },
-    industries: [
-      'Logistics & Transportation',
-      'Security Firms',
-      'Healthcare & Hospitals',
-      'Police and First Responders',
-      'Hotels & Retail',
-      'Industrial Sites'
-    ],
-    accessories: [
-      'TE320-C1 Single Dock Charger',
-      'MUC320 16-Slot Multi-Charger',
-      'T2 Body Cam + RSM',
-      'RSM-35 Remote Speaker Microphone',
-      'Bluetooth Earpieces',
-      'Air-Tube Earpieces',
-      'Noise-Cancellation Headsets'
-    ]
+    industries: ['indLogistics', 'indSecurityFirms', 'indHealthcare', 'indFirstResponders', 'indHotels', 'indIndustrialSites'],
+    accessories: ['accSingleDock', 'accMultiCharger', 'accBodyCam', 'accRSM35', 'accBTEarpieces', 'accAirTube', 'accNoiseCancel'],
   },
   {
     name: 'Telo TE590',
     image: 'https://ik.imagekit.io/8jn9lgbbcw/web/Screenshot%202024-11-25%20153236.png?updatedAt=1740474557838',
-    features: [
-      'Dual Camera System (2MP Front, 8MP Rear)',
-      'Advanced GPS Tracking',
-      'Emergency Alarm System',
-      'IP67 Waterproof Rating',
-      'Group & Individual Calls',
-      'Extended Battery Life',
-      'High-Resolution Display',
-      'Multi-Network Support'
-    ],
-    description: 'Premium PTT device with enhanced camera capabilities and advanced features for professional communication. Features dual cameras for documentation and evidence collection in the field.',
+    features: ['featDualCamera', 'featAdvGPS', 'featEmergencyAlarm', 'featIP67', 'featGroupIndivCalls', 'featExtBattery', 'featHighResDisplay', 'featMultiNetwork'],
+    descriptionKey: 'productTE590Desc',
     specifications: {
-      'Battery Life': 'Up to 32 hours',
-      'Display': '2.8" HD Color LCD',
-      'Weight': '320g',
-      'Waterproof Rating': 'IP67',
-      'Operating Temperature': '-30°C to +60°C',
-      'Channels': '512',
-      'GPS': 'Multi-constellation positioning',
-      'Cameras': 'Front 2.0MP, Rear 8.0MP',
-      'Network': '4G LTE/Wi-Fi'
+      specBatteryLife: 'Up to 32 hours',
+      specDisplay: '2.8" HD Color LCD',
+      specWeight: '320g',
+      specWaterproof: 'IP67',
+      specOpTemp: '-30°C to +60°C',
+      specChannels: '512',
+      specGPS: 'Multi-constellation positioning',
+      specCameras: 'Front 2.0MP, Rear 8.0MP',
+      specNetwork: '4G LTE/Wi-Fi',
     },
-    industries: [
-      'Security & Surveillance',
-      'Law Enforcement',
-      'Emergency Services',
-      'Industrial Inspection',
-      'Field Documentation',
-      'Asset Management'
-    ],
-    accessories: [
-      'External Camera Modules',
-      'Night Vision Attachments',
-      'Charging Stations',
-      'Protective Cases',
-      'Remote Microphones',
-      'Bluetooth Accessories'
-    ]
+    industries: ['indSurveillance', 'indLawEnforcement', 'indEmergency', 'indInspection', 'indFieldDoc', 'indAssetMgmt'],
+    accessories: ['accCamModules', 'accNightVisionAttach', 'accChargingStations', 'accProtectiveCases', 'accRemoteMics', 'accBTAccessories'],
   },
   {
     name: 'M6L Vehicle Unit',
     image: 'https://ik.imagekit.io/8jn9lgbbcw/web/Screenshot%202024-11-25%20143300.png?updatedAt=1740474557612',
-    features: ['Vehicle Mounting', 'Extended Coverage', 'Fleet Management', 'Voice Recording'],
-    description: 'Powerful vehicle-mounted communication system for fleet operations.',
+    features: ['featVehicleMount', 'featExtCoverage', 'featFleetMgmt', 'featVoiceRecord'],
+    descriptionKey: 'productM6LDesc',
     specifications: {
-      'Power Output': '25W',
-      'Display': '4.3" Touch Screen',
-      'Operating Voltage': '12V/24V DC',
-      'Waterproof Rating': 'IP54',
-      'Operating Temperature': '-20°C to +70°C',
-      'Channels': '2048',
-      'GPS': 'Built-in high-sensitivity GPS'
-    }
-  }
+      specPowerOutput: '25W',
+      specDisplay: '4.3" Touch Screen',
+      specOpVoltage: '12V/24V DC',
+      specWaterproof: 'IP54',
+      specOpTemp: '-20°C to +70°C',
+      specChannels: '2048',
+      specGPS: 'Built-in high-sensitivity GPS',
+    },
+    industries: [],
+    accessories: [],
+  },
 ];
 
 export default function Products() {
-  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductData | null>(null);
   const { t } = useLanguage();
 
   if (selectedProduct) {
@@ -207,10 +147,10 @@ export default function Products() {
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">{product.name}</h3>
                 <ul className="space-y-2 mb-6">
-                  {product.features.slice(0, 4).map((feature) => (
-                    <li key={feature} className="flex items-center text-gray-600">
+                  {product.features.slice(0, 4).map((featureKey) => (
+                    <li key={featureKey} className="flex items-center text-gray-600">
                       <span className="w-1.5 h-1.5 bg-phoenix-500 rounded-full mr-2"></span>
-                      {feature}
+                      {t(featureKey)}
                     </li>
                   ))}
                 </ul>

@@ -2,148 +2,37 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
+import type { TranslationKey } from '../i18n/translations';
 
-const comparisonData = [
-  {
-    feature: 'Cost of Ownership',
-    traditional: 'Extremely High',
-    pushToTalk: 'Low',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Central Dispatch',
-    traditional: 'Limited by Infrastructure',
-    pushToTalk: 'Unlimited',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Future proof',
-    traditional: '',
-    pushToTalk: '',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'One-to-Many Communication',
-    traditional: '',
-    pushToTalk: '',
-    traditionalGood: true,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Flexibility',
-    traditional: 'Technology Limited',
-    pushToTalk: 'High Flexibility',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Scalability',
-    traditional: 'Limited, slow, extremely high cost',
-    pushToTalk: 'Simple, Fast, Unlimited',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Coverage',
-    traditional: 'Limited – Private network',
-    pushToTalk: '2G/3G/4G/Wi-Fi',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Devices',
-    traditional: 'Limited choice and capability & Expensive',
-    pushToTalk: 'Large variety for any price',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Battery Usage',
-    traditional: 'Very High',
-    pushToTalk: 'Very Low',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Encrypted',
-    traditional: 'TEA 1/2/3/4 128 Bit or RC4 128 Bit',
-    pushToTalk: 'AES 256 Bit',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'GPS',
-    traditional: 'N/A',
-    pushToTalk: 'Active',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Multi-Channel',
-    traditional: 'Single Channel only',
-    pushToTalk: 'Dynamic',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Applications',
-    traditional: 'Very Limited',
-    pushToTalk: 'Wide Range, Incl. API',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Multimedia messages',
-    traditional: 'Text or None',
-    pushToTalk: 'Text, Picture, Video Files',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Signed In User List',
-    traditional: 'Limited',
-    pushToTalk: '',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Status Updates',
-    traditional: 'None or limited',
-    pushToTalk: '',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'WIFI Compatible',
-    traditional: '',
-    pushToTalk: '',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'Multiple Operating GSM Systems',
-    traditional: '',
-    pushToTalk: '',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: '95% Plus Coverage across Tanzania',
-    traditional: '',
-    pushToTalk: '',
-    traditionalGood: false,
-    pushToTalkGood: true
-  },
-  {
-    feature: 'National / International Coverage',
-    traditional: '',
-    pushToTalk: '',
-    traditionalGood: false,
-    pushToTalkGood: true
-  }
+interface ComparisonRow {
+  featureKey: TranslationKey;
+  traditionalKey?: TranslationKey;
+  pushToTalkKey?: TranslationKey;
+  traditionalGood: boolean;
+  pushToTalkGood: boolean;
+}
+
+const comparisonRows: ComparisonRow[] = [
+  { featureKey: 'compCostFeature', traditionalKey: 'compCostTrad', pushToTalkKey: 'compCostPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compDispatchFeature', traditionalKey: 'compDispatchTrad', pushToTalkKey: 'compDispatchPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compFutureProofFeature', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compOneToManyFeature', traditionalGood: true, pushToTalkGood: true },
+  { featureKey: 'compFlexibilityFeature', traditionalKey: 'compFlexTrad', pushToTalkKey: 'compFlexPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compScalabilityFeature', traditionalKey: 'compScalabilityTrad', pushToTalkKey: 'compScalabilityPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compCoverageFeature', traditionalKey: 'compCoverageTrad', pushToTalkKey: 'compCoveragePTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compDevicesFeature', traditionalKey: 'compDevicesTrad', pushToTalkKey: 'compDevicesPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compBatteryFeature', traditionalKey: 'compBatteryTrad', pushToTalkKey: 'compBatteryPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compEncryptedFeature', traditionalKey: 'compEncryptedTrad', pushToTalkKey: 'compEncryptedPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compGPSFeature', traditionalKey: 'compGPSTrad', pushToTalkKey: 'compGPSPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compMultiChannelFeature', traditionalKey: 'compMultiChannelTrad', pushToTalkKey: 'compMultiChannelPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compAppsFeature', traditionalKey: 'compAppsTrad', pushToTalkKey: 'compAppsPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compMultimediaFeature', traditionalKey: 'compMultimediaTrad', pushToTalkKey: 'compMultimediaPTT', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compUserListFeature', traditionalKey: 'compUserListTrad', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compStatusFeature', traditionalKey: 'compStatusTrad', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compWifiFeature', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compGSMFeature', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compTzCoverageFeature', traditionalGood: false, pushToTalkGood: true },
+  { featureKey: 'compNatCoverageFeature', traditionalGood: false, pushToTalkGood: true },
 ];
 
 export default function Comparison() {
@@ -182,46 +71,50 @@ export default function Comparison() {
                 </tr>
               </thead>
               <tbody>
-                {comparisonData.map((row, index) => (
-                  <motion.tr
-                    key={row.feature}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.05 }}
-                    className={`border-b border-gray-100 hover:bg-gray-50 transition-colors ${
-                      index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
-                    }`}
-                  >
-                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium text-gray-900">{row.feature}</td>
-                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-center text-sm sm:text-base">
-                      {row.traditional ? (
-                        <span className="text-gray-700">{row.traditional}</span>
-                      ) : (
-                        <div className="flex justify-center">
-                          {row.traditionalGood ? (
-                            <Check className="h-6 w-6 text-green-500" />
-                          ) : (
-                            <X className="h-6 w-6 text-red-500" />
-                          )}
-                        </div>
-                      )}
-                    </td>
-                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-center bg-phoenix-50 text-sm sm:text-base">
-                      {row.pushToTalk ? (
-                        <span className="text-gray-700 font-medium">{row.pushToTalk}</span>
-                      ) : (
-                        <div className="flex justify-center">
-                          {row.pushToTalkGood ? (
-                            <Check className="h-6 w-6 text-green-500" />
-                          ) : (
-                            <X className="h-6 w-6 text-red-500" />
-                          )}
-                        </div>
-                      )}
-                    </td>
-                  </motion.tr>
-                ))}
+                {comparisonRows.map((row, index) => {
+                  const traditionalText = row.traditionalKey ? t(row.traditionalKey) : '';
+                  const pushToTalkText = row.pushToTalkKey ? t(row.pushToTalkKey) : '';
+                  return (
+                    <motion.tr
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.05 }}
+                      className={`border-b border-gray-100 hover:bg-gray-50 transition-colors ${
+                        index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
+                      }`}
+                    >
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium text-gray-900">{t(row.featureKey)}</td>
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 text-center text-sm sm:text-base">
+                        {traditionalText ? (
+                          <span className="text-gray-700">{traditionalText}</span>
+                        ) : (
+                          <div className="flex justify-center">
+                            {row.traditionalGood ? (
+                              <Check className="h-6 w-6 text-green-500" />
+                            ) : (
+                              <X className="h-6 w-6 text-red-500" />
+                            )}
+                          </div>
+                        )}
+                      </td>
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 text-center bg-phoenix-50 text-sm sm:text-base">
+                        {pushToTalkText ? (
+                          <span className="text-gray-700 font-medium">{pushToTalkText}</span>
+                        ) : (
+                          <div className="flex justify-center">
+                            {row.pushToTalkGood ? (
+                              <Check className="h-6 w-6 text-green-500" />
+                            ) : (
+                              <X className="h-6 w-6 text-red-500" />
+                            )}
+                          </div>
+                        )}
+                      </td>
+                    </motion.tr>
+                  );
+                })}
               </tbody>
             </table>
           </motion.div>

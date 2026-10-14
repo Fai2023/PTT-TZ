@@ -113,26 +113,17 @@ export default function Features() {
               >
                 {[...Array(2)].map((_, i) => (
                   <div key={i} className="flex gap-4 sm:gap-8 min-w-full">
-                    {[
-                      {
-                        text: "The audio quality and range are exceptional. It's transformed how our security team communicates.",
-                        author: "John D., Security Manager"
-                      },
-                      {
-                        text: "The GPS tracking feature has improved our fleet management significantly.",
-                        author: "Sarah M., Operations Director"
-                      },
-                      {
-                        text: "Easy to use and incredibly reliable. Best communication solution we've implemented.",
-                        author: "Michael R., Site Supervisor"
-                      }
-                    ].map((testimonial, index) => (
+                    {([
+                      { textKey: 'testimonial1Text', authorKey: 'testimonial1Author' },
+                      { textKey: 'testimonial2Text', authorKey: 'testimonial2Author' },
+                      { textKey: 'testimonial3Text', authorKey: 'testimonial3Author' },
+                    ] as const).map((testimonial, index) => (
                       <div
                         key={index}
                         className="bg-white rounded-lg shadow-lg p-4 sm:p-6 flex-1 min-w-[240px] sm:min-w-0"
                       >
-                        <p className="text-sm sm:text-base text-gray-600 italic mb-4">{testimonial.text}</p>
-                        <p className="text-sm sm:text-base text-gray-900 font-semibold">{testimonial.author}</p>
+                        <p className="text-sm sm:text-base text-gray-600 italic mb-4">{t(testimonial.textKey)}</p>
+                        <p className="text-sm sm:text-base text-gray-900 font-semibold">{t(testimonial.authorKey)}</p>
                       </div>
                     ))}
                   </div>

@@ -52,7 +52,7 @@ export default function DocumentsPage() {
     <div className="min-h-screen bg-gray-50">
       <SEOHead
         title="Document Repository | Phoenix Tanzania"
-        description="Browse and download brochures, data sheets, and technical documents for Phoenix Tanzania's Push-to-Talk communication solutions."
+        description={t('documentRepositoryDesc')}
         url="https://phoenix.tz/documents"
       />
       <Header />
@@ -70,15 +70,14 @@ export default function DocumentsPage() {
               <div className="flex items-center gap-3 mb-4">
                 <FolderOpen className="h-8 w-8 text-phoenix-400" />
                 <span className="text-phoenix-400 font-medium text-sm uppercase tracking-wider">
-                  Resource Center
+                  {t('resourceCenter')}
                 </span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-                Document Repository
+                {t('documentRepository')}
               </h1>
               <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
-                Browse and download brochures, data sheets, and technical documentation for our
-                full range of Push-to-Talk communication products and solutions.
+                {t('documentRepositoryDesc')}
               </p>
             </motion.div>
           </div>
@@ -91,7 +90,7 @@ export default function DocumentsPage() {
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-8">
               <div className="flex items-center gap-2 text-gray-500 mr-2">
                 <Filter className="h-4 w-4" />
-                <span className="text-sm font-medium hidden sm:inline">Filter:</span>
+                <span className="text-sm font-medium hidden sm:inline">{t('filter')}:</span>
               </div>
               {filterTabs.map((tab) => (
                 <motion.button
@@ -170,7 +169,7 @@ export default function DocumentsPage() {
                           className="flex items-center gap-2 px-4 py-2 bg-phoenix-600 hover:bg-phoenix-700 text-white text-sm font-medium rounded-lg transition-colors"
                         >
                           <Download className="h-4 w-4" />
-                          Download
+                          {t('download')}
                         </motion.button>
                       </div>
                     </div>
@@ -183,7 +182,7 @@ export default function DocumentsPage() {
             {filteredDocs.length === 0 && (
               <div className="text-center py-20">
                 <FileCheck2 className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-400">No documents in this category.</p>
+                <p className="text-gray-400">{t('noDocuments')}</p>
               </div>
             )}
           </div>

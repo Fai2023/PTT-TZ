@@ -75,7 +75,7 @@ export default function HomePage() {
                       to={`/case-studies/${image.slug}`}
                       className="inline-flex items-center gap-1.5 text-sm font-medium text-phoenix-600 hover:text-phoenix-700 transition-colors"
                     >
-                      Learn More
+                      {t('learnMoreShort')}
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>

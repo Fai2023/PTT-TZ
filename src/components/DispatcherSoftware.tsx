@@ -2,102 +2,41 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Monitor, Users, Bell, Clock, Globe, Layout, Map, Navigation, History, UserPlus, MessageSquare, X } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
+import type { TranslationKey } from '../i18n/translations';
 
 export default function DispatcherSoftware() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const { t } = useLanguage();
 
-  const features = [
-    {
-      icon: <Layout className="h-6 w-6" />,
-      title: 'Modular Dashboard',
-      description: 'Customize your view with tools like Messages, User Info, Maps, Activity Logs, and Replay panels.'
-    },
-    {
-      icon: <Map className="h-6 w-6" />,
-      title: 'Live Geofencing',
-      description: 'Set up virtual zones to monitor movement and trigger alerts when boundaries are crossed.'
-    },
-    {
-      icon: <Navigation className="h-6 w-6" />,
-      title: 'Real-Time Tracking',
-      description: 'View live locations and device status updates across teams.'
-    },
-    {
-      icon: <Globe className="h-6 w-6" />,
-      title: 'Multi-Language Interface',
-      description: 'Operate in your preferred language for ease of use across global teams.'
-    },
-    {
-      icon: <History className="h-6 w-6" />,
-      title: 'Replay Functionality',
-      description: 'Review past communications and activity for auditing or incident analysis.'
-    },
-    {
-      icon: <UserPlus className="h-6 w-6" />,
-      title: 'User-Friendly Setup',
-      description: 'Quick installation and login for dispatchers, with access controlled by admin permissions.'
-    }
+  const features: { icon: React.ReactNode; titleKey: TranslationKey; descKey: TranslationKey }[] = [
+    { icon: <Layout className="h-6 w-6" />, titleKey: 'dispFeat1Title', descKey: 'dispFeat1Desc' },
+    { icon: <Map className="h-6 w-6" />, titleKey: 'dispFeat2Title', descKey: 'dispFeat2Desc' },
+    { icon: <Navigation className="h-6 w-6" />, titleKey: 'dispFeat3Title', descKey: 'dispFeat3Desc' },
+    { icon: <Globe className="h-6 w-6" />, titleKey: 'dispFeat4Title', descKey: 'dispFeat4Desc' },
+    { icon: <History className="h-6 w-6" />, titleKey: 'dispFeat5Title', descKey: 'dispFeat5Desc' },
+    { icon: <UserPlus className="h-6 w-6" />, titleKey: 'dispFeat6Title', descKey: 'dispFeat6Desc' },
   ];
 
-  const responsibilities = [
-    {
-      icon: <Monitor className="h-6 w-6" />,
-      title: 'Service & Field Planning',
-      description: 'Strategically organize and schedule field activities to improve service delivery.'
-    },
-    {
-      icon: <Users className="h-6 w-6" />,
-      title: 'Field Monitoring',
-      description: 'Observe and track personnel activity and location in real-time to ensure safety and productivity.'
-    },
-    {
-      icon: <UserPlus className="h-6 w-6" />,
-      title: 'User Management',
-      description: 'Oversee all field personnel from a single interface—monitor statuses, assign tasks, and manage communication groups.'
-    },
-    {
-      icon: <Bell className="h-6 w-6" />,
-      title: 'Emergency Response',
-      description: 'Instantly react to critical events with live location tracking and direct communication channels.'
-    },
-    {
-      icon: <Clock className="h-6 w-6" />,
-      title: 'Service Efficiency',
-      description: 'Enhance operational workflows by identifying inefficiencies and optimizing resource use.'
-    },
-    {
-      icon: <MessageSquare className="h-6 w-6" />,
-      title: 'Central Communication Hub',
-      description: 'Act as the bridge between field agents and administrators, ensuring smooth information flow.'
-    }
+  const responsibilities: { icon: React.ReactNode; titleKey: TranslationKey; descKey: TranslationKey }[] = [
+    { icon: <Monitor className="h-6 w-6" />, titleKey: 'dispResp1Title', descKey: 'dispResp1Desc' },
+    { icon: <Users className="h-6 w-6" />, titleKey: 'dispResp2Title', descKey: 'dispResp2Desc' },
+    { icon: <UserPlus className="h-6 w-6" />, titleKey: 'dispResp3Title', descKey: 'dispResp3Desc' },
+    { icon: <Bell className="h-6 w-6" />, titleKey: 'dispResp4Title', descKey: 'dispResp4Desc' },
+    { icon: <Clock className="h-6 w-6" />, titleKey: 'dispResp5Title', descKey: 'dispResp5Desc' },
+    { icon: <MessageSquare className="h-6 w-6" />, titleKey: 'dispResp6Title', descKey: 'dispResp6Desc' },
+  ];
+
+  const screenshotKeys: TranslationKey[] = [
+    'screenshot1', 'screenshot2', 'screenshot3', 'screenshot4', 'screenshot5', 'screenshot6',
   ];
 
   const screenshots = [
-    {
-      src: 'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20114406.png?updatedAt=1748423295534',
-      alt: 'Dispatcher Dashboard Overview'
-    },
-    {
-      src: 'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20114750.png?updatedAt=1748423295697',
-      alt: 'Geofencing'
-    },
-    {
-      src: 'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20104622.png?updatedAt=1748423296119',
-      alt: 'GOOGLESAT'
-    },
-    {
-      src: 'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20104818.png?updatedAt=1748423295829',
-      alt: 'OpenStreetMap'
-    },
-    {
-      src: 'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20114902.png?updatedAt=1748423295768',
-      alt: 'Activity Monitoring'
-    },
-    {
-      src: 'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20104729.png?updatedAt=1748423296192',
-      alt: 'ESRI MAP'
-    }
+    'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20114406.png?updatedAt=1748423295534',
+    'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20114750.png?updatedAt=1748423295697',
+    'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20104622.png?updatedAt=1748423296119',
+    'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20104818.png?updatedAt=1748423295829',
+    'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20114902.png?updatedAt=1748423295768',
+    'https://ik.imagekit.io/8jn9lgbbcw/Screenshots/Screenshot%202025-05-28%20104729.png?updatedAt=1748423296192',
   ];
 
   return (
@@ -127,7 +66,7 @@ export default function DispatcherSoftware() {
               <div className="grid gap-6">
                 {responsibilities.map((item, index) => (
                   <motion.div
-                    key={item.title}
+                    key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -136,8 +75,8 @@ export default function DispatcherSoftware() {
                   >
                     <div className="text-phoenix-600 flex-shrink-0">{item.icon}</div>
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h4>
-                      <p className="text-gray-600">{item.description}</p>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-2">{t(item.titleKey)}</h4>
+                      <p className="text-gray-600">{t(item.descKey)}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -154,7 +93,7 @@ export default function DispatcherSoftware() {
               <div className="grid gap-6">
                 {features.map((item, index) => (
                   <motion.div
-                    key={item.title}
+                    key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -163,8 +102,8 @@ export default function DispatcherSoftware() {
                   >
                     <div className="text-phoenix-600 flex-shrink-0">{item.icon}</div>
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h4>
-                      <p className="text-gray-600">{item.description}</p>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-2">{t(item.titleKey)}</h4>
+                      <p className="text-gray-600">{t(item.descKey)}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -175,24 +114,24 @@ export default function DispatcherSoftware() {
           <div className="mt-16 sm:mt-20">
             <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 text-center mb-8 sm:mb-12">{t('softwareInterface')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {screenshots.map((screenshot, index) => (
+              {screenshots.map((src, index) => (
                 <motion.div
-                  key={screenshot.alt}
+                  key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   className="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
-                  onClick={() => setSelectedImage(screenshot.src)}
+                  onClick={() => setSelectedImage(index)}
                 >
                   <div className="aspect-video overflow-hidden rounded-lg">
                     <img
-                      src={screenshot.src}
-                      alt={screenshot.alt}
+                      src={src}
+                      alt={t(screenshotKeys[index])}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <p className="mt-4 text-sm text-gray-600 text-center">{screenshot.alt}</p>
+                  <p className="mt-4 text-sm text-gray-600 text-center">{t(screenshotKeys[index])}</p>
                 </motion.div>
               ))}
             </div>
@@ -201,7 +140,7 @@ export default function DispatcherSoftware() {
       </section>
 
       <AnimatePresence>
-        {selectedImage && (
+        {selectedImage !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -227,8 +166,8 @@ export default function DispatcherSoftware() {
               </button>
               <div className="overflow-hidden rounded-lg">
                 <img
-                  src={selectedImage}
-                  alt="Enlarged view"
+                  src={screenshots[selectedImage]}
+                  alt={t('enlargedView')}
                   className="w-full h-auto object-contain"
                 />
               </div>
